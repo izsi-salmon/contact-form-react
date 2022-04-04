@@ -3,7 +3,8 @@ import ContactForm from "./ContactForm";
 
 const App = () => {
   return(
-    <div div="main-content">
+    <div className="main-content">
+      <h1>Contact Form</h1>
       <ContactForm />
     </div>
   );

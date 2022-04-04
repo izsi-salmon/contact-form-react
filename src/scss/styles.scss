@@ -1,3 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+$grey-light: #EDEDED;
+$grey-medium: #9595A1;
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+
+  .main-content {
+    margin: 24px;
+    max-width: 500px;
+    @media only screen and (min-width: 768px) {
+      margin: 56px auto;
+    }
+    h1 {
+      font-weight: normal;
+      margin: 0 0 16px 0;
+    }
+    .form-container {
+
+      .input-collection {
+        margin-bottom: 16px;
+        label {
+          font-size: 12px;
+          font-weight: bold;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          .required-text {
+            color: $grey-medium;
+            display: block;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            margin-top: 4px;
+          }
+        }
+        input {
+          border: 1px solid $grey-light;
+          display: block;
+          margin: 8px 0;
+          padding: 8px;
+          width: 100%;
+        }
+        select{
+          border: 1px solid $grey-light;
+          display: block;
+          margin: 8px 16px 0 0;
+          padding: 8px;
+          width: 100%;
+        }
+      }
+
+      fieldset {
+        border: 0;
+        padding: 0;
+        margin: 0 0 16px 0;
+        min-width: 0;
+
+        legend {
+          font-size: 12px;
+          font-weight: bold;
+          letter-spacing: 0.1em;
+          margin-bottom: 4px;
+          text-transform: uppercase;
+        }
+
+        input[type=checkbox] {
+          display: inline;
+          margin: 8px 4px 8px 0;
+        }
+
+        .label-checkbox {
+          display: block;
+        }
+      }
+
+      button {
+        background-color: #000;
+        border: none;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 0.1em;
+        padding: 16px 0;
+        text-transform: uppercase;
+        width: 100%;
+        @media only screen and (min-width: 768px) {
+          margin: 16px 0;
+        }
+      }
+    }
+  }
 }
