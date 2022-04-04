@@ -1,12 +1,13 @@
 {
-  "name": "adopt-me",
+  "name": "contact-form",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "parcel src/index.html",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
-    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet"
+    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "sass": "sass --watch scss:src/styles"
   },
   "author": "",
   "license": "ISC",
@@ -21,7 +22,8 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "parcel": "1.12.3",
-    "prettier": "^2.6.0"
+    "prettier": "^2.6.0",
+    "sass": "^1.49.11"
   },
   "dependencies": {
     "react": "^17.0.1",

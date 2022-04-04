@@ -10,30 +10,56 @@ function toTitleCase(string){
   return capitalisedFirstLetter + lowerCaseRemainingLetters;
 }
 
+const TigerTypeField = () => {
+  return(
+    <label>
+      Type of tiger
+      <input
+        type="text"
+        id="tiger-type"
+        name="tiger-type"
+      />
+    </label>
+  );
+}
+
 const ContactForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [colour, setColour] = useState("");
-  // Are both of these arrays needed? Or will they eventually share functionality?
-  const [animal, setAnimal] = useState([]);
-
-  // I want this state to be an array that I can push selected checkbox values to
   const [selectedAnimals, setSelectedAnimals] = useState([]);
 
-  // useEffect(() => {
-  //   console.dir(animal)
-  //   console.log("Use effect, animal is:" + animal[0])
-  // }, [animal]);
+  useEffect(() => {
+    displayTigerTypeField();
+  }, [selectedAnimals]);
 
-// This handle change event aims to push the selected check box into the target state array
-// It would be nice if this could eventually toggle as well, so deselecting, selecting would push and remove from the array
+  const displayTigerTypeField = () => {
+    if (selectedAnimals.includes("tiger")){
+      return <TigerTypeField />
+    }
+  }
+
+  const handleAddition = (animal) => {
+    setSelectedAnimals([animal, ...selectedAnimals]);
+  }
+
+  const handleRemoval = (animal) => {
+    // return the list of selected animals excluding the one passed in here
+    const filteredAnimals = selectedAnimals.filter(a => a !== animal);
+    setSelectedAnimals(filteredAnimals);
+  }
+
   const handleChange = (event) => {
-    setSelectedAnimals([event.target.value]);
-    console.log(selectedAnimals);
+    if (event.target.checked === true) {
+      handleAddition(event.target.value);
+    }
+    else if (event.target.checked === false) {
+      handleRemoval(event.target.value);
+    }
   };
 
   return(
-    <form>
+    <form htmlclass="contact-form">
       <label htmlFor="email">
         Email
         <input
@@ -75,20 +101,11 @@ const ContactForm = () => {
         <legend>Animal</legend>
         {ANIMALS.map((animal) => (
           <label key={animal} htmlFor={animal}>
-            {/* I want to be able to select an input and run a function that will push the selected checkbox's value to state, so that eventually I have an array of all selected checkboxes */}
             {toTitleCase(animal)} <input type="checkbox" id={animal} name={animal} key={animal} value={animal} onChange={(event) => handleChange(event)} />
           </label>
         ))}
       </fieldset>
-      {/* Contitional field */}
-      <label>
-        Type of tiger
-        <input
-          type="text"
-          id="tiger-type"
-          name="tiger-type"
-        />
-      </label>
+      {displayTigerTypeField()}
     </form>
   );
 };
