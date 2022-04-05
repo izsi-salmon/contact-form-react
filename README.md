@@ -35,8 +35,10 @@ Somewhere to send the data to store it/action on it. Obviously a core point of a
 * I would add TypeScript to the project because it would make the code safer and more clean
 * Add better on submit functionality that takes the user to a page that validates that their message was sent and relays what they entered back to them
 * Have somewhere the message data is stored once submitted
-* Improve the styles for desktop
+* Improve the styles for desktop, larger (and responsive) font sizes
 * Refactor the ContactForm component, it's a big file and lots of functionality all mixed in together, there is repetitive code that can be reduced, and the way the conditional field is rendered is messy.
+* Browser testing and optomisation, I deprioritised browser testing for this exercise because it is not production code. I would look into browser support recommendations (which browsers to support), test on those browsers, and edit my parcel config to optimise support for all my selected browsers
+* I've made the colours simple, and they are suitable for all colour blindness types, but if the colour palette were to extend, it would be cool to have a UI toggle/input to select your vision type; normal, Deuteranopia etc., a dyslexic option would be great too to change the font to a dyslexic friendly font, and an irlens option to reduce the contrast of the page.
 
 **Know issues**
 
