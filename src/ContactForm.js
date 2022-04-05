@@ -136,7 +136,7 @@ const ContactForm = () => {
     }
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
     if (validationErrors.length > 0){
       event.preventDefault();
     } else {
@@ -147,7 +147,7 @@ const ContactForm = () => {
 
   return(
     <div className="form-container">
-      <form onSubmit={(event) => handleSubmit()} className="contact-form">
+      <form onSubmit={(event) => handleSubmit(event)} className="contact-form">
 
         <div className="input-collection">
           <label htmlFor="email">
