@@ -10,6 +10,8 @@ function toTitleCase(string){
   return capitalisedFirstLetter + lowerCaseRemainingLetters;
 }
 
+// Notes: not really happy about how this component is passing things back and forth between the parent
+// it doesn't feel safe or best practice, so with more time I would implement this more cleanly
 const TigerTypeField = (props) => {
   return(
     <div className="input-collection">
@@ -102,6 +104,8 @@ const ContactForm = () => {
     }
   };
 
+// Notes: These add/remove validation errors are really duplicates of the handle addition code, this
+// could be refactored to be more concise and non repeating
   const addValidationError = (validationError) => {
     setValidationErrors([validationError, ...validationErrors]);
     console.log(validationError);
@@ -113,9 +117,6 @@ const ContactForm = () => {
     setValidationErrors(filteredValidationErrors);
   }
 
-  // Switch statement that either sets the validated target's state, or pushes a validation error to the validation error array
-  // and calls a function to render validation error component
-  // switch case can take care of the tiger type field requirement which will probably come from submit onchange
   const formValidation = (fieldName, fieldValue) => {
     switch (fieldName) {
       case "email":
@@ -136,6 +137,8 @@ const ContactForm = () => {
     }
   }
 
+  // Notes: I realise an alert is not the most elegant way to finish your form experience, however I don't want to spend further time on
+  // the form action, it was the simplest way to validate the user and test that all our data is recieved properly.
   const handleSubmit = (event) => {
     if (validationErrors.length > 0){
       event.preventDefault();

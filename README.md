@@ -24,3 +24,17 @@
 
 Tests would be the next step in improving this contact form, however it is simple and straight forward to test manually so this is low risk for now.
 Somewhere to send the data to store it/action on it. Obviously a core point of a contact form but for now I want to focus on data entry and validation.
+
+
+**Next steps**
+
+* Improve screen reader accessibility, I haven't tested what the experience is like with a screen reader yet. The form can be accessed keyboard only with tabbing though.
+* I would add TypeScript to the project because it would make the code safer and more clean
+* Add better on submit functionality that takes the user to a page that validates that their message was sent and relays what they entered back to them
+* Have somewhere the message data is stored once submitted
+* Improve the styles for desktop
+* Refactor the ContactForm component, it's a big file and lots of functionality all mixed in together, there is repetitive code that can be reduced, and the way the conditional field is rendered is messy.
+
+**Know issues**
+
+* After a validation error pops up, and the user re-enters the correct data, the submit button needs to be pressed twice before it can successfully submit. This is because the state updates on blur so the first click doesn't have the context for the updated state yet. with more time I would fix this.
