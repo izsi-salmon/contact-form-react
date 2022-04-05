@@ -38,3 +38,4 @@ Somewhere to send the data to store it/action on it. Obviously a core point of a
 **Know issues**
 
 * After a validation error pops up, and the user re-enters the correct data, the submit button needs to be pressed twice before it can successfully submit. This is because the state updates on blur so the first click doesn't have the context for the updated state yet. with more time I would fix this.
+* ES lint returns the errors; Unreachable code (lines 42, 47, 52) and Unexpected lexical declaration in case block (lines 123, 127, 131, 132) which I haven't looked into yet since they didn't affect functionality.
