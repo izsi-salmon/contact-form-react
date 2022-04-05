@@ -1,5 +1,7 @@
 # React Contact Form
 
+## Project planning
+
 **Functionality:**
 
 * Users are able to enter data
@@ -25,7 +27,7 @@
 Tests would be the next step in improving this contact form, however it is simple and straight forward to test manually so this is low risk for now.
 Somewhere to send the data to store it/action on it. Obviously a core point of a contact form but for now I want to focus on data entry and validation.
 
------
+## Project notes
 
 **Next steps**
 
