@@ -21,13 +21,38 @@ const TigerTypeField = (props) => {
           id="tiger-type"
           name="tiger-type"
           onChange={(event) => props.setTigerType(event.target.value)}
-          onBlur={(event) => props.setTigerType(event.target.value)}
+          onBlur={(event) => props.formValidation(event.target.name, event.target.value)}
           value={props.tigerType}
           required
         />
       </label>
+      {props.validationError("tiger-type")}
     </div>
   );
+}
+
+const ValidationError = (props) => {
+  switch (props.inputType) {
+    case "email":
+      return(
+        <span className="validation-error"><i className="fa-solid fa-triangle-exclamation"></i> Please enter a valid email</span>
+      );
+      break;
+      case "password":
+        return(
+          <span className="validation-error"><i className="fa-solid fa-triangle-exclamation"></i> Please enter a password longer than 8 characters</span>
+        );
+        break;
+      case "tiger-type":
+        return(
+          <span className="validation-error"><i className="fa-solid fa-triangle-exclamation"></i> Please enter a type of tiger</span>
+        );
+        break;
+    default:
+    return(
+      <span className="validation-error"><i className="fa-solid fa-triangle-exclamation"></i> Please enter valid data and fill in required field(s)</span>
+    );
+  }
 }
 
 const ContactForm = () => {
@@ -36,6 +61,7 @@ const ContactForm = () => {
   const [colour, setColour] = useState("Blue");
   const [selectedAnimals, setSelectedAnimals] = useState([]);
   const [tigerType, setTigerType] = useState("");
+  const [validationErrors, setValidationErrors] = useState([]);
 
   useEffect(() => {
     displayTigerTypeField();
@@ -43,7 +69,17 @@ const ContactForm = () => {
 
   const displayTigerTypeField = (tigerType, setTigerType) => {
     if (selectedAnimals.includes("tiger")){
-      return <TigerTypeField tigerType={tigerType} setTigerType={setTigerType} />
+      return <TigerTypeField tigerType={tigerType} setTigerType={setTigerType} formValidation={formValidation} validationError={displayValidationError} />
+    }
+  }
+
+  useEffect(() => {
+    displayValidationError();
+  }, [validationErrors]);
+
+  const displayValidationError = (inputType) => {
+    if (validationErrors.length > 0 && validationErrors.includes(inputType)){
+      return <ValidationError inputType={inputType} />;
     }
   }
 
@@ -66,26 +102,52 @@ const ContactForm = () => {
     }
   };
 
-  // TODO: Switch statement that either sets the validated target's state, or pushes a validation error to the validation error array
+  const addValidationError = (validationError) => {
+    setValidationErrors([validationError, ...validationErrors]);
+    console.log(validationError);
+  }
+
+  const removeValidationError = (validationError) => {
+    // return the list of selected animals excluding the one passed in here
+    const filteredValidationErrors = validationErrors.filter(a => a !== validationError);
+    setValidationErrors(filteredValidationErrors);
+  }
+
+  // Switch statement that either sets the validated target's state, or pushes a validation error to the validation error array
   // and calls a function to render validation error component
   // switch case can take care of the tiger type field requirement which will probably come from submit onchange
-  // const formValidation = (fieldName) => {
-  //   switch (fieldName) {
-  //     case email:
-  //     emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-  //     emailValid ? setEmail()
-  //       break;
-  //     default:
-  //
-  //   }
-  // }
+  const formValidation = (fieldName, fieldValue) => {
+    switch (fieldName) {
+      case "email":
+        const emailValid = fieldValue.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) || fieldValue === "";
+        emailValid ? (removeValidationError(fieldName)) : (addValidationError(fieldName));
+        break;
+      case "password":
+        const passwordValid = fieldValue.length >= 8 || fieldValue === "";
+        passwordValid ? (removeValidationError(fieldName)) : (addValidationError(fieldName));
+        break;
+        case "tiger-type":
+          const isTigerTypeRequired = selectedAnimals.includes("tiger");
+          const tigerTypeValid = fieldValue.length > 0 || !isTigerTypeRequired;
+          tigerTypeValid  ? (removeValidationError(fieldName)) : (addValidationError(fieldName));
+          break;
+      default:
+      return;
+    }
+  }
 
-  // TODO: Submit button will disable with a tooltip if there are validation issues, otherwise it will submit with a form
-  // action that just validates that the data was recieved okay
+  const handleSubmit = () => {
+    if (validationErrors.length > 0){
+      event.preventDefault();
+    } else {
+      const stringOfAnimals = selectedAnimals.toString();
+      alert(`Thanks! Your message was recieved. \n Your message: \n Email: ${email} \n Password: ${password} \n Colour:  ${colour} \n Animals: ${stringOfAnimals} ${selectedAnimals.includes("tiger") ? `\n Type of Tiger: ${tigerType}` : ""}`);
+    }
+  }
 
   return(
     <div className="form-container">
-      <form className="contact-form">
+      <form onSubmit={(event) => handleSubmit()} className="contact-form">
 
         <div className="input-collection">
           <label htmlFor="email">
@@ -96,9 +158,11 @@ const ContactForm = () => {
               name="email"
               placeholder="Enter your email address"
               onChange={(event) => setEmail(event.target.value)}
+              onBlur={(event) => formValidation(event.target.name, event.target.value)}
               value={email}
             />
           </label>
+          {displayValidationError("email")}
         </div>
 
         <div className="input-collection">
@@ -110,9 +174,11 @@ const ContactForm = () => {
               name="password"
               placeholder="Enter your password"
               onChange={(event) => setPassword(event.target.value)}
+              onBlur={(event) => formValidation(event.target.name, event.target.value)}
               value={password}
             />
           </label>
+          {displayValidationError("password")}
         </div>
 
         <div className="input-collection">
